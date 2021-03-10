@@ -13,7 +13,8 @@ defmodule KV.MixProject do
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        "coveralls.xml": :test
       ]
     ]
   end
