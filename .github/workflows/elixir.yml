@@ -37,7 +37,7 @@ jobs:
     - name: Run tests
       run: mix test
     - name: Run coverage
-      run: >
+      run: |
         mix coveralls.github
         mix coveralls.xml
       if: ${{ always() }}
