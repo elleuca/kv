@@ -8,7 +8,7 @@ defmodule KV.MixProject do
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: :covertool],
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.detail": :test,
