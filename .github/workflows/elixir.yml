@@ -36,20 +36,21 @@ jobs:
       run: mix deps.get
     - name: Run tests
       run: mix test
-    - name: Run coverage
-      run: |
-        mix coveralls.github
-        mix coveralls.xml
+    - name: Store coverage xml
+      run: mix coveralls.xml
       if: ${{ always() }}
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      if: ${{ always() }}
-    - name: Run codacy-coverage-reporter
+    - name: Send coverage to codacy
       uses: codacy/codacy-coverage-reporter-action@master
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         coverage-reports: cover/excoveralls.xml
+      if: ${{ always() }}
+    - name: Send coverage to coveralls
+      run: mix coveralls.github
+      if: ${{ always() }}
+    - name: Scan for SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       if: ${{ always() }}
