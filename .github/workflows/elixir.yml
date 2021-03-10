@@ -35,7 +35,7 @@ jobs:
     - name: Install dependencies
       run: mix deps.get
     - name: Run tests
-      run: mix test --cover --export-coverage
+      run: mix test --cover --export-coverage jacoco
     #- name: Store coverage xml
     #  run: mix coveralls.xml
     #  if: ${{ always() }}
