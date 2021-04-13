@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-elixir@v1
       with:
         elixir-version: '1.11.3' # Define the elixir version [required]
-        otp-version: '22.3' # Define the OTP version [required]
+        otp-version: '23.0' # Define the OTP version [required]
         experimental-otp: true
     - name: Restore dependencies cache
       uses: actions/cache@v2
@@ -39,8 +39,9 @@ jobs:
       env: 
         MIX_ENV: test
       run: mix do compile --warnings-as-errors, coveralls.json
-    - name: Codecov Send
-      env: 
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      run: bash <(curl -s https://codecov.io/bash)
+    - name: Store coverage xml
+      run: mix coveralls.xml
+      if: ${{ always() }}
+    - name: Send coverage to coveralls
+      run: mix coveralls.github
       if: ${{ always() }}
